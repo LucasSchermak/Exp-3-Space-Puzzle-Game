@@ -12,63 +12,31 @@ public class CaracterController2D : MonoBehaviour
     [Range(0, .3f)] [SerializeField] private float movementSmoothing = .05f;
     [SerializeField] private bool airControl = false;
     [SerializeField] private Collider2D crouchDisableCollider;
-    private GameManagerController _gameController;
     public GameObject tutorial;
 
     private bool grounded;
-    private bool interagindo1;
-    private bool interagindo2;
     private bool facingRight = true;
     private Vector3 velocity = Vector3.zero;
     [SerializeField]private Rigidbody2D rb;
     [SerializeField] private Collision coll;
 
-    [Header("Events")] [Space]
-    public UnityEvent OnLandEvent;
-    public UnityEvent OnInteractEvent;
 
-    [System.Serializable]
-    public class BoolEvent : UnityEvent<bool>
-    {
-    }
-
-    public BoolEvent OnCrouchEvent;
     private bool wasCrouching = false;
 
     private void Start()
     {
         tutorial.SetActive(false);
-        _gameController = GameManagerController.Instance;
     }
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<Collision>();
-        if (OnLandEvent == null)
-            OnLandEvent = new UnityEvent();
-        if (OnInteractEvent == null)
-            OnInteractEvent = new UnityEvent();
-
-        if (OnCrouchEvent == null)
-            OnCrouchEvent = new BoolEvent();
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        interagindo1 = false;
-        grounded = false;
-        if (coll.onGround)
-        {
-            grounded = true;
-        }
-
-        if (!coll.onGround)
-        {
-            OnLandEvent.Invoke();
-
-        }        
-      
+        grounded = false || coll.onGround;
     }
 
     public void Move(float move, bool crouch, bool jump)
@@ -88,7 +56,6 @@ public class CaracterController2D : MonoBehaviour
                 if (!wasCrouching)
                 {
                     wasCrouching = true;
-                    OnCrouchEvent.Invoke(true);
                 }
 
                 move += crouchSpeed;
@@ -103,7 +70,6 @@ public class CaracterController2D : MonoBehaviour
                 if (wasCrouching)
                 {
                     wasCrouching = false;
-                    OnCrouchEvent.Invoke(false);
                 }
             }
 
@@ -135,28 +101,5 @@ public class CaracterController2D : MonoBehaviour
 
         localScale.x *= -1;
         transform.localScale = localScale;
-    }
-
-    private void OnTriggerStay2D(Collider2D other)
-    {
-
-        if (other.gameObject.tag == "Button1")
-        {
-            tutorial.SetActive(true);
-            _gameController.onButton1 = true;
-        }
-
-        if (other.gameObject.tag == "Button2")
-        {
-            tutorial.SetActive(true);
-            _gameController.onButton2 = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        tutorial.SetActive(false);
-        _gameController.onButton1 = false;
-        _gameController.onButton2 = false;
     }
 }
