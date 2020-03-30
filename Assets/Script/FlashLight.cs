@@ -5,16 +5,11 @@ using UnityEngine;
 
 public class FlashLight : MonoBehaviour
 {
-    private bool flashLightEnabled;
+    [SerializeField] private bool flashLightEnabled;
     public GameObject flashLight;
     public GameObject lightObj;
-    public float maxEnergy;
-    private float currentEnergy;
-
-    public void Start()
-    {
-        
-    }
+    [SerializeField] private float maxEnergy;
+    [SerializeField] private float currentEnergy;
 
     public void Update()
     {
