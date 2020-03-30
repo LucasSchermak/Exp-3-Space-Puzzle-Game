@@ -5,8 +5,8 @@ using UnityEngine.Serialization;
 
 public class SeeThroughWalls : MonoBehaviour
 {
-    public GameObject Wall = null;
-    public float seeWall = 3f;
+    [SerializeField]private GameObject Wall = null;
+    [SerializeField]private float seeWall = 3f;
     void OnTriggerEnter(Collider collider)
         {
             if(IsCharacter(collider))
