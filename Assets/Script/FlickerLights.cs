@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class FlickerLights : MonoBehaviour
 {
-    public bool isFlickering = false;
-    public float timeDelay;
+    [SerializeField] bool isFlickering = false;
+    [SerializeField] float timeDelay;
     void Update()
     {
         if (isFlickering == false)
