@@ -10,14 +10,13 @@ public class PlayerController : MonoBehaviour
     [Range(0, .3f)] [SerializeField] private float movementSmoothing = .05f;
     [SerializeField] private bool airControl = false;
     [SerializeField] private Collider2D crouchDisableCollider;
-    public GameObject tutorial;
-
+    private GameObject tutorial;
+    
     private bool grounded;
     private bool facingRight = true;
     private Vector3 velocity = Vector3.zero;
     [SerializeField]private Rigidbody2D rb;
     [SerializeField] private Collision coll;
-
     private void Start()
     {
         tutorial.SetActive(false);
@@ -33,7 +32,6 @@ public class PlayerController : MonoBehaviour
     {
         grounded = false || coll.onGround;
     }
-
     public void Move(float move, bool crouch, bool jump)
     {
         if (grounded || airControl)
@@ -50,14 +48,12 @@ public class PlayerController : MonoBehaviour
                 Flip();
             }
         }
-
         if (grounded && jump)
         {
             grounded = false;
             rb.AddForce(new Vector2(0f, jumpForce));
         }
     }
-
     private void Flip()
     {
         facingRight = !facingRight;
