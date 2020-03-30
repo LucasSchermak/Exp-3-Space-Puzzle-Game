@@ -7,13 +7,13 @@ using UnityEngine.Serialization;
 
 public class PlayerInput : MonoBehaviour
 {
-    public GameManagerController gameController;
-    public CaracterController2D controller;
-    public GameObject current;
+    [SerializeField]private GameManagerController gameController;
+    [SerializeField]private PlayerController controller;
+    [SerializeField]private GameObject current;
 
-    public float runSpeed = 40f;
-    private bool jump = false;
-    private float horizontalMove = 0f;
+    [SerializeField]private float runSpeed = 40f;
+    [SerializeField]private bool jump = false;
+    [SerializeField]private float horizontalMove = 0f;
 
     
     void Start()
