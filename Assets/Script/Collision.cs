@@ -17,8 +17,10 @@ public class Collision : MonoBehaviour
     public bool onLWall;
     public bool cellingCheck;
     public int wallSide;
+    public bool seeThroughWall;
     [Space] [Header("Collision")] 
     
+
     public float collisionRadius = 0.25f;
     public Vector2 bottomOffset, rightOffset, leftOffset, upOffset;
     void Start()
@@ -29,6 +31,7 @@ public class Collision : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         onGround = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, collisionRadius, groundLayer);
         cellingCheck = Physics2D.OverlapCircle((Vector2)transform.position + upOffset, collisionRadius, groundLayer);
         onWall = Physics2D.OverlapCircle((Vector2) transform.position + rightOffset , collisionRadius,
@@ -45,7 +48,6 @@ public class Collision : MonoBehaviour
         Gizmos.DrawWireSphere((Vector2)transform.position + upOffset, collisionRadius);
         Gizmos.DrawWireSphere((Vector2)transform.position + rightOffset, collisionRadius);
         Gizmos.DrawWireSphere((Vector2)transform.position + leftOffset, collisionRadius);
-        //Gizmos.DrawWireSphere((Vector3)transform.position + interectOffset, interactRadius);
-        
+        Gizmos.DrawRay(transform.position,direction: Vector3.back);
     }
 }
